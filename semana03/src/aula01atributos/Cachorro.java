@@ -1,4 +1,4 @@
-package AulaAtributos;
+package aula01atributos;
 
 public class Cachorro {
     String nome;

@@ -1,4 +1,4 @@
-package AulaAtributos;
+package aula01atributos;
 
 public class Pessoa {
     String nome;

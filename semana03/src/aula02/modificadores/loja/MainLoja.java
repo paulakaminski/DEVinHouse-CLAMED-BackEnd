@@ -1,6 +1,6 @@
-package aula02.loja;
+package aula02.modificadores.loja;
 
-import aula02.produto.Produto;
+import aula02.modificadores.produto.Produto;
 
 public class MainLoja {
     public static void main(String[] args) {

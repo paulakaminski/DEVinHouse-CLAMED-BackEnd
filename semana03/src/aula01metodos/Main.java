@@ -1,4 +1,4 @@
-package AulaMetodos;
+package aula01metodos;
 
 public class Main {
     public static void main(String[] args) {
