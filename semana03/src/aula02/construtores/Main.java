@@ -1,0 +1,2 @@
+package aula02.construtores;public class Main {
+}
