@@ -1,0 +1,25 @@
+//exercicio 02
+
+package model;
+
+public class PessoaModel {
+	private long id;
+	private String nome;
+	
+	public Long getId() {
+		return id;
+	}
+	
+	public void setId(Long id) {
+		this.id = id;
+	}
+	
+	public String getNome() {
+		return nome;
+	}
+	
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+	
+}
