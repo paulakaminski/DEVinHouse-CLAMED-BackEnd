@@ -1,3 +1,7 @@
+//exercicio 03
+//Efetue a criação do repositório da entidade de Pessoas e adicione-o no service de Pessoas para utilizarmos nos
+// próximos exercícios.
+
 package tech.semana09.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -37,4 +37,14 @@ public class PessoaController {
         return service.getByStatus();
     }
 
+    @PutMapping("/update/{id}")
+    public void update(@RequestBody PessoaEntity pessoa, @PathVariable("id") String id) {
+        service.update(pessoa, Long.parseLong(id));
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public void delete(@PathVariable("id") String id) {
+        service.delete(Long.parseLong(id));
+    }
+
 }
