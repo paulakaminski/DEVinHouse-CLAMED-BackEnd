@@ -104,4 +104,9 @@ public class PessoaService {
 
     }
 
+    //exercicio 10
+    public List<PessoaEntity> filterByNameOrEmail (String filter) {
+        return this.pessoaRepository.filterByNameOrEmail(filter);
+    }
+
 }

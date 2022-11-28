@@ -32,7 +32,7 @@ public class PessoaController {
         return service.getById(Long.parseLong(id));
     }
 
-    @GetMapping("/true")
+    @GetMapping("/status-true")
     public List<PessoaEntity> getStatusTrue() {
         return service.getByStatus();
     }
@@ -45,6 +45,11 @@ public class PessoaController {
     @DeleteMapping("/delete/{id}")
     public void delete(@PathVariable("id") String id) {
         service.delete(Long.parseLong(id));
+    }
+
+    @GetMapping("/filter")
+    public List<PessoaEntity> filterByNameOrEmail(@RequestParam("q") String filter) {
+        return service.filterByNameOrEmail(filter);
     }
 
 }
