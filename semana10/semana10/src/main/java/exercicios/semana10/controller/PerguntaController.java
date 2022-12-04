@@ -64,11 +64,11 @@ public class PerguntaController {
         );
     }
 
-    @GetMapping("/respostas/{id}")
-    public ResponseEntity encontrarRespostaPorPergunta(@PathVariable Long id) {
-        List<RespostaEntity> respostaEntities = respostaRepository.findRespostaEntitiesByPerguntaEntity_Id(id);
+    @GetMapping("/assunto")
+    public ResponseEntity encontrarPerguntasPorAssunto(@RequestParam("idAssunto") String id) {
+        List<PerguntaEntity> perguntaEntities = perguntaRepository.findPerguntaEntitiesByAssuntoEntity_Id(Long.parseLong(id));
 
-        return ResponseEntity.ok(respostaEntities);
+        return ResponseEntity.ok(perguntaEntities);
     }
 
     @PostMapping
@@ -110,7 +110,7 @@ public class PerguntaController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity deletarPerguntaPorId(@PathVariable Long id) {
-        perguntaRepository.deleteById(id);
+        respostaRepository.deleteById(id);
         return ResponseEntity.ok().build();
     }
 

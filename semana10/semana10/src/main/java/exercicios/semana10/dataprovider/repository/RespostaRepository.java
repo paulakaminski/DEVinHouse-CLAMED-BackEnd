@@ -9,6 +9,6 @@ import java.util.List;
 @Repository
 public interface RespostaRepository extends JpaRepository<RespostaEntity, Long> {
 
-    public List<RespostaEntity> findRespostaEntitiesByPerguntaEntity_Id(Long id);
+    List<RespostaEntity> findRespostaEntitiesByPerguntaEntity_Id(Long id);
 
 }

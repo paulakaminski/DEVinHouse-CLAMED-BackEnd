@@ -56,6 +56,13 @@ public class RespostaController {
         );
     }
 
+    @GetMapping("/pergunta")
+    public ResponseEntity encontrarRespostasPorPergunta(@RequestParam("idPergunta") String id) {
+        List<RespostaEntity> respostaEntities = respostaRepository.findRespostaEntitiesByPerguntaEntity_Id(Long.parseLong(id));
+
+        return ResponseEntity.ok(respostaEntities);
+    }
+
     @PostMapping
     public ResponseEntity<RespostaResponse> salvarResposta(@RequestBody RespostaRequest respostaRequest) {
         PerguntaEntity perguntaEntity = perguntaRepository.findById(respostaRequest.getIdPergunta()).get();

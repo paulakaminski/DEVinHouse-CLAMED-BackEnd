@@ -53,13 +53,6 @@ public class AssuntoController {
 
     }
 
-    @GetMapping("/perguntas/assunto/{id}")
-    public ResponseEntity encontrarPerguntasPorAssunto(@PathVariable Long id) {
-        List<PerguntaEntity> perguntaEntities = perguntaRepository.findPerguntaEntitiesByAssuntoEntity_Id(id);
-
-        return ResponseEntity.ok(perguntaEntities);
-    }
-
     @PostMapping
     public ResponseEntity<AssuntoResponse> salvarAssunto(@RequestBody AssuntoRequest request) {
         AssuntoEntity assuntoEntity = assuntoRepository.save(new AssuntoEntity(request.getNome()));
