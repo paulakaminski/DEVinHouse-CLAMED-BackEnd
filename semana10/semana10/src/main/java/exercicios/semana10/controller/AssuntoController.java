@@ -2,82 +2,74 @@ package exercicios.semana10.controller;
 
 import exercicios.semana10.controller.dto.AssuntoRequest;
 import exercicios.semana10.controller.dto.AssuntoResponse;
-import exercicios.semana10.dataprovider.entity.AssuntoEntity;
-import exercicios.semana10.dataprovider.entity.PerguntaEntity;
-import exercicios.semana10.dataprovider.repository.AssuntoRepository;
-import exercicios.semana10.dataprovider.repository.PerguntaRepository;
+import exercicios.semana10.padroes.DefaultResponse;
+import exercicios.semana10.service.AssuntoService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @RequestMapping("/assunto")
 public class AssuntoController {
+    private final AssuntoService assuntoService;
 
-    private final AssuntoRepository assuntoRepository;
-    private final PerguntaRepository perguntaRepository;
-
-    public AssuntoController(AssuntoRepository assuntoRepository, PerguntaRepository perguntaRepository) {
-        this.assuntoRepository = assuntoRepository;
-        this.perguntaRepository = perguntaRepository;
+    public AssuntoController(AssuntoService assuntoService) {
+        this.assuntoService = assuntoService;
     }
 
     @GetMapping
     public ResponseEntity<List<AssuntoResponse>> encontrarAssuntos() {
-//        assuntoRepository.save(new AssuntoEntity("Java"));
-//        assuntoRepository.save(new AssuntoEntity("Javascript"));
 
-        List<AssuntoEntity> entityList = assuntoRepository.findAll();
+        List<AssuntoResponse> responseList = assuntoService.encontrarAssuntos();
 
-        List<AssuntoResponse> responseList = new ArrayList<>();
-        for (AssuntoEntity entity:
-             entityList) {
-            responseList.add(
-                    new AssuntoResponse(entity.getNome())
-            );
-        }
         return ResponseEntity.ok(responseList);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<AssuntoResponse> encontrarAssuntoPorId(@PathVariable Long id){
-        AssuntoEntity assuntoEntity = assuntoRepository.findById(id).get();
+        AssuntoResponse assuntoResponse = assuntoService.encontrarAssuntoPorId(id);
 
         return new ResponseEntity<AssuntoResponse>(
-                new AssuntoResponse(assuntoEntity.getNome()),
-                HttpStatus.OK
+                assuntoResponse, HttpStatus.OK
         );
 
     }
 
     @PostMapping
-    public ResponseEntity<AssuntoResponse> salvarAssunto(@RequestBody AssuntoRequest request) {
-        AssuntoEntity assuntoEntity = assuntoRepository.save(new AssuntoEntity(request.getNome()));
+    public ResponseEntity<DefaultResponse> salvarAssunto(@RequestBody AssuntoRequest request) {
+        AssuntoResponse assuntoResponse = assuntoService.salvarNovoAssunto(request);
 
-        return new ResponseEntity<AssuntoResponse>(new AssuntoResponse(assuntoEntity.getNome()), HttpStatus.CREATED);
+        return new ResponseEntity<>(
+                new DefaultResponse<AssuntoResponse>(
+                        HttpStatus.CREATED.value(),
+                        assuntoResponse
+                ),
+                HttpStatus.CREATED
+        );
 
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<AssuntoResponse> atualizarAssuntoPorId(
+    public ResponseEntity<DefaultResponse> atualizarAssuntoPorId(
             @PathVariable Long id,
             @RequestBody AssuntoRequest request
     ) {
-        AssuntoEntity assuntoEntity = assuntoRepository.findById(id).get();
-        assuntoEntity.setNome(request.getNome());
-        assuntoRepository.save(assuntoEntity);
+        AssuntoResponse assuntoResponse = assuntoService.atualizarAssuntoPorId(id, request);
 
-        return new ResponseEntity<AssuntoResponse>(
-                new AssuntoResponse(assuntoEntity.getNome()), HttpStatus.OK
+        return new ResponseEntity<>(
+                new DefaultResponse<AssuntoResponse>(
+                        HttpStatus.OK.value(),
+                        assuntoResponse
+                ),
+                HttpStatus.OK
         );
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity deletarAssuntoPorId(@PathVariable Long id) {
-        assuntoRepository.deleteById(id);
+        assuntoService.deletarAssuntoPorId(id);
         return ResponseEntity.ok().build();
     }
 

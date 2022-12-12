@@ -1,5 +1,6 @@
 package exercicios.semana10.dataprovider.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,6 +24,7 @@ public class RespostaEntity {
 
     //muitas respostas para uma pergunta
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnoreProperties(value = {"applications", "hibernateLazyInitializer"})
     @JoinColumn(name="pergunta_id")
     private PerguntaEntity perguntaEntity;
 
